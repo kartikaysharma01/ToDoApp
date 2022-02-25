@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ListDetailActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/Theme.AppCompat">
+
+        <Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#FFFFFF"
+            android:padding="0dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:contentInsetLeft="0dp"
+            android:contentInsetStart="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetEnd="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
+            android:elevation="4dp" >
+
+            <ImageButton
+                android:id="@+id/img_back"
+                android:layout_width="50dp"
+                android:layout_height="32dp"
+                android:background="#0000"
+                android:scaleType="centerCrop"
+                android:paddingEnd="15dp"
+                android:paddingStart="5dp"
+                android:paddingTop="25dp"
+                android:paddingBottom="25dp"
+                android:layout_marginStart="5dp"
+                app:tint="@color/black"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:contentDescription="Back"/>
+
+            <TextView
+                android:id="@+id/tv_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="cursive"
+                android:textSize="22sp"
+                android:text="To-Doodles" />
+
+            <ImageButton
+                android:id="@+id/img_save"
+                android:layout_width="50dp"
+                android:layout_height="32dp"
+                android:alpha="0.5"
+                android:background="#0000"
+                android:scaleType="centerCrop"
+                android:paddingEnd="5dp"
+                android:paddingStart="15dp"
+                android:paddingTop="25dp"
+                android:paddingBottom="25dp"
+                android:layout_marginEnd="5dp"
+                android:layout_gravity="end"
+                app:tint="@color/black"
+                android:src="@drawable/ic_baseline_save_24"
+                android:contentDescription="Save"/>
+        </Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <EditText
+        android:id="@+id/etItemTitle"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:hint="Title"
+        android:background="@null"
+        android:inputType="text"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/etItemDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:hint="Description"
+        android:background="@null"
+        android:inputType="text"
+        android:importantForAutofill="no" />
+
+    <LinearLayout
+        android:id="@+id/ll_dates"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:gravity = "center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/label_credited"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="Credited at: " />
+
+        <TextView
+            android:id="@+id/tv_credited"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"/>
+
+        <TextView
+            android:id="@+id/tv_last_modified"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/label_last_modified"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="Last Modified at: " />
+    </LinearLayout>
+</LinearLayout>
+</layout>
