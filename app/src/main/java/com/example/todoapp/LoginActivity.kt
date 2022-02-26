@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
+import androidx.databinding.DataBindingUtil
+import com.example.todoapp.databinding.ActivityLoginBinding
+import com.example.todoapp.utils.hideStatusBar
+import com.example.todoapp.utils.snack
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
@@ -12,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityLoginBinding
     private val signInLauncher = registerForActivityResult(
         FirebaseAuthUIActivityResultContract()
     ) { result ->
@@ -20,8 +25,10 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        setContentView(R.layout.activity_login)
+        hideStatusBar()
+        binding = DataBindingUtil.setContentView(
+            this, R.layout.activity_login
+        )
         createSignInIntent()
     }
 
@@ -31,14 +38,11 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         } else {
-            if (result.idpResponse == null) {
-                // todo add snack
-                Log.d("testing", "user cancelled by back press")
-            } else {
-                // todo add snack
-                Log.d("testing", "Login failed. response = ${result.idpResponse!!.error?.errorCode}")
-            }
-            // Restart login activity
+            if (result.idpResponse == null)
+                snack(binding.root, getString(R.string.login_cancel_back_press), false)
+            else
+                snack(binding.root, getString(R.string.login_failed, result.idpResponse!!.error?.errorCode), false)
+            // todo: Restart login activity
             Log.i("logged in user details: ", "login failed")
             // Sign in failed. If response is null the user canceled the
             // sign-in flow using the back button. Otherwise check

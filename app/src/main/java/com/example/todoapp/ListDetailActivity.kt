@@ -19,6 +19,7 @@ import com.example.todoapp.helper.FirebaseAuthenticationHelper.getCurrentUserUid
 import com.example.todoapp.helper.FirebaseRealtimeDBHelper.addItem
 import com.example.todoapp.helper.FirebaseRealtimeDBHelper.editItem
 import com.example.todoapp.models.StoredTodo
+import com.example.todoapp.utils.*
 import com.google.android.material.snackbar.Snackbar
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -36,7 +37,7 @@ class ListDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        hideStatusBar()
         binding = DataBindingUtil.setContentView(
             this, R.layout.activity_list_detail
         )
@@ -50,34 +51,15 @@ class ListDetailActivity : AppCompatActivity() {
         binding.etItemDesc.setText(itemData!!.desc)
         binding.tvCreated.text = dateParser(itemData!!.createdAt)
         binding.tvLastModified.text = dateParser(itemData!!.updatedAt)
-        binding.llDates.visibility = View.VISIBLE
+        binding.llDates.show()
         checkSaveEnabled(true)
-    }
-
-    fun dialogYesOrNo(
-        activity: Activity,
-        title: String,
-        message: String,
-        listener: DialogInterface.OnClickListener
-    ) {
-        val builder = AlertDialog.Builder(activity)
-        builder.setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
-            dialog.dismiss()
-            listener.onClick(dialog, id)
-        })
-        builder.setNegativeButton("No", null)
-        val alert = builder.create()
-        alert.setTitle(title)
-        alert.setMessage(message)
-        alert.show()
     }
 
     override fun onBackPressed() {
         if (isItemChanged) {
             dialogYesOrNo(
-                this,
-                "Discard Changes?",
-                "The current change to the item will be permanently lost."
+                getString(R.string.discard_changes),
+                getString(R.string.discard_desc)
             ) { _, _ ->
                 super.onBackPressed()
             }
@@ -97,17 +79,17 @@ class ListDetailActivity : AppCompatActivity() {
         }
 
         binding.imgBack.setOnClickListener {
-            WindowInsetsControllerCompat(window, window.decorView).hide(WindowInsetsCompat.Type.ime())
+            hideKeyboard()
             onBackPressed()
         }
 
         binding.imgSave.setOnClickListener {
-            WindowInsetsControllerCompat(window, window.decorView).hide(WindowInsetsCompat.Type.ime())
+            hideKeyboard()
             if (it.alpha == 0.5f) {
                 if (title.isNullOrBlank())
-                    showSnackBar("ToDo Title can not be empty.", false)
+                    snack(binding.root, getString(R.string.title_can_not_be_empty), false)
                 else
-                    showSnackBar("No changes to be saved.", false)
+                    snack(binding.root, getString(R.string.no_changes), false)
             } else {
                 saveItemToDB()
             }
@@ -152,22 +134,6 @@ class ListDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun showSnackBar(msg: String, succeed: Boolean) {
-        val snackBar = Snackbar.make(binding.root, msg, Snackbar.LENGTH_LONG)
-
-        succeed.let {
-            val color = if (it) R.color.snack_succeed else R.color.snack_fail
-            snackBar.setBackgroundTint(ContextCompat.getColor(this, color))
-        }
-        snackBar.show()
-    }
-
-    private fun dateParser(date: String): String {
-        val localDateTime = LocalDateTime.parse(date)
-        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd,yyyy HH:mm")
-        return formatter.format(localDateTime)
-    }
-
     private fun saveItemToDB() {
         updatedAt = LocalDateTime.now().toString()
         if (createdAt == null)
@@ -175,10 +141,10 @@ class ListDetailActivity : AppCompatActivity() {
         itemData = StoredTodo(id, createdAt!!, updatedAt!!, title!!, desc, status)
         if (id == null) {
             id = addItem(getCurrentUserUid(), itemData!!)
-            showSnackBar("New ToDo Added Successfully.", true)
+            snack(binding.root, getString(R.string.new_todo_added), true)
         } else {
             editItem(getCurrentUserUid(), itemData!!)
-            showSnackBar("ToDo edited Successfully.", true)
+            snack(binding.root, getString(R.string.todo_edited), true)
         }
         setData()
         isItemChanged = false

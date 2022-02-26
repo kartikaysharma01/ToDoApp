@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.databinding.ItemsTodolistBinding
+import com.example.todoapp.helper.FirebaseAuthenticationHelper
 import com.example.todoapp.helper.FirebaseAuthenticationHelper.getCurrentUserUid
 import com.example.todoapp.helper.FirebaseRealtimeDBHelper.changeItemStatus
 import com.example.todoapp.helper.FirebaseRealtimeDBHelper.deleteItem
 import com.example.todoapp.models.StoredTodo
+import com.example.todoapp.utils.dialogYesOrNo
+import com.example.todoapp.utils.snack
 
 
 class MainActivityAdapter :
@@ -48,8 +51,17 @@ class MainActivityAdapter :
 
             it.tvToDo.text = itemTitle
             it.imgDelete.setOnClickListener {
-                // todo add a snackbar
-                deleteItem(getCurrentUserUid() ,todoItem)
+                context.dialogYesOrNo(
+                    context.getString(R.string.delete_todo),
+                    context.getString(R.string.delete_desc)
+                ) { _, _ ->
+                    deleteItem(getCurrentUserUid() ,todoItem)
+                    context.snack(
+                        holder.itemView,
+                        context.getString(R.string.item_deleted),
+                        false
+                    )
+                }
             }
             it.chkToDo.setOnClickListener { view ->
                 if ((view as CompoundButton).isChecked) {

@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">ToDo App</string>
+    <string name="new_app_name"><b>TO-DOODLES</b></string>
+    <string name="login_cancel_back_press">Login Cancelled due to user back press</string>
+    <string name="login_failed">Login failed. Error Code = %1d</string>
+    <string name="img_btn_logout_desc">Logout</string>
+    <string name="img_btn_back_desc">Back</string>
+    <string name="img_btn_save_desc">Save</string>
+    <string name="completed"><b>Completed</b></string>
+    <string name="add_new_todo">Add new ToDo</string>
+    <string name="logout">Logout?</string>
+    <string name="logout_desc">Do you want to logout of your account?</string>
+    <string name="delete_todo">Delete ToDo Item?</string>
+    <string name="delete_desc">This item will be deleted forever. This is a irreversible step.</string>
+    <string name="item_deleted">Item deleted successfully.</string>
+    <string name="discard_changes">Discard Changes?</string>
+    <string name="discard_desc">The current change to the item will be permanently lost.</string>
+    <string name="title_can_not_be_empty">ToDo Title can not be empty.</string>
+    <string name="no_changes">No changes to be saved.</string>
+    <string name="new_todo_added">New ToDo Added Successfully.</string>
+    <string name="todo_edited">ToDo edited Successfully.</string>
+    <string name="hint_item_desc">Description</string>
+    <string name="hint_item_title">Title</string>
+    <string name="created_at">Created at: </string>
+    <string name="updated_at">Updated at: </string>
 </resources>

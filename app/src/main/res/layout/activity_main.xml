@@ -3,128 +3,126 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:theme="@style/Theme.AppCompat">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
 
-        <Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#FFFFFF"
-            android:padding="0dp"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:contentInsetLeft="0dp"
-            android:contentInsetStart="0dp"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
-            android:contentInsetRight="0dp"
-            android:contentInsetEnd="0dp"
-            app:contentInsetRight="0dp"
-            app:contentInsetEnd="0dp"
-            android:elevation="4dp" >
-
-            <TextView
-                android:id="@+id/tv_toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textAllCaps="true"
-                android:textColor="@color/colorPrimary"
-                android:fontFamily="cursive"
-                android:textSize="22sp"
-                android:text="To-Doodles" />
-
-            <ImageButton
-                android:id="@+id/img_logout"
-                android:layout_width="50dp"
-                android:layout_height="32dp"
-                android:background="#0000"
-                android:scaleType="centerCrop"
-                android:paddingEnd="5dp"
-                android:paddingStart="15dp"
-                android:paddingTop="25dp"
-                android:paddingBottom="25dp"
-                android:layout_marginEnd="5dp"
-                android:scaleX="0.8"
-                android:scaleY="0.8"
-                android:layout_gravity="end"
-                app:tint="@color/black"
-                android:src="@drawable/icons8_shutdown_24"
-                android:contentDescription="Logout"/>
-        </Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/app_bar">
-
-        <LinearLayout
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:fitsSystemWindows="true"
+            android:theme="@style/Theme.AppCompat">
 
-            <include
-                android:id="@+id/no_todo_items"
-                layout="@layout/layout_no_list"
-                android:visibility="gone" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_incomplete_toDoList"
+            <Toolbar
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:clipToPadding="false"
-                android:visibility="visible"
-                tools:itemCount="3"
-                android:nestedScrollingEnabled="true"
-                tools:listitem="@layout/items_todolist" />
+                android:layout_height="?attr/actionBarSize"
+                android:background="#FFFFFF"
+                android:padding="0dp"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:contentInsetLeft="0dp"
+                android:contentInsetStart="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                android:contentInsetRight="0dp"
+                android:contentInsetEnd="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetEnd="0dp"
+                android:elevation="4dp" >
 
-            <TextView
-                android:id="@+id/tv_completed"
+                <TextView
+                    android:id="@+id/tv_toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="cursive"
+                    android:textSize="22sp"
+                    android:text="@string/new_app_name" />
+
+                <ImageButton
+                    android:id="@+id/img_logout"
+                    android:layout_width="50dp"
+                    android:layout_height="32dp"
+                    android:background="#0000"
+                    android:scaleType="centerCrop"
+                    android:paddingEnd="5dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="25dp"
+                    android:paddingBottom="25dp"
+                    android:layout_marginEnd="5dp"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:layout_gravity="end"
+                    app:tint="@color/black"
+                    android:src="@drawable/icons8_shutdown_24"
+                    android:contentDescription="@string/img_btn_logout_desc"/>
+            </Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/app_bar">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="15dp"
-                android:text="Completed" />
+                android:orientation="vertical" >
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_complete_toDoList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:clipToPadding="false"
-                android:visibility="visible"
-                tools:itemCount="3"
-                android:nestedScrollingEnabled="true"
-                tools:listitem="@layout/items_todolist" />
-        </LinearLayout>
+                <include
+                    android:id="@+id/no_todo_items"
+                    layout="@layout/layout_no_list"
+                    android:visibility="gone" />
 
-    </androidx.core.widget.NestedScrollView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_incomplete_toDoList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:clipToPadding="false"
+                    android:visibility="visible"
+                    tools:itemCount="3"
+                    android:nestedScrollingEnabled="true"
+                    tools:listitem="@layout/items_todolist" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="end|bottom"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="Add todo"
-        android:src="@drawable/ic_baseline_add_24" />
-</RelativeLayout>
+                <TextView
+                    android:id="@+id/tv_completed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/completed" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_complete_toDoList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:clipToPadding="false"
+                    android:visibility="visible"
+                    tools:itemCount="3"
+                    android:nestedScrollingEnabled="true"
+                    tools:listitem="@layout/items_todolist" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAddItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="end|bottom"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/add_new_todo"
+            android:src="@drawable/ic_baseline_add_24" />
+    </RelativeLayout>
 </layout>

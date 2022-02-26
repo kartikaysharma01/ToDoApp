@@ -19,6 +19,10 @@ import com.example.todoapp.helper.FirebaseAuthenticationHelper.isLoggedIn
 import com.example.todoapp.helper.FirebaseAuthenticationHelper.signOut
 import com.example.todoapp.helper.FirebaseRealtimeDBHelper.fetchData
 import com.example.todoapp.models.StoredTodo
+import com.example.todoapp.utils.dialogYesOrNo
+import com.example.todoapp.utils.hide
+import com.example.todoapp.utils.hideStatusBar
+import com.example.todoapp.utils.show
 import com.google.firebase.database.DataSnapshot
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        hideStatusBar()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         if (!isLoggedIn()) {
@@ -51,42 +55,23 @@ class MainActivity : AppCompatActivity() {
     }
 
      private fun setNoDataLayout() {
-         binding.noTodoItems.visibility = View.VISIBLE
-         binding.tvCompleted.visibility = View.GONE
+         // todo
+         binding.noTodoItems.show()
+         binding.tvCompleted.hide()
      }
-
-    fun dialogYesOrNo(
-        activity: Activity,
-        title: String,
-        message: String,
-        listener: DialogInterface.OnClickListener
-    ) {
-        val builder = AlertDialog.Builder(activity)
-        builder.setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
-            dialog.dismiss()
-            listener.onClick(dialog, id)
-        })
-        builder.setNegativeButton("No", null)
-        val alert = builder.create()
-        alert.setTitle(title)
-        alert.setMessage(message)
-        alert.show()
-    }
 
     private fun initViews() {
         incompleteListAdapter = MainActivityAdapter()
         completeListAdapter = MainActivityAdapter()
         binding.apply {
             fabAddItem.setOnClickListener {
-                Log.d("testing1","fab clicked")
                 val intent = Intent(this@MainActivity, ListDetailActivity::class.java)
                 startActivity(intent)
             }
             imgLogout.setOnClickListener {
                 dialogYesOrNo(
-                    this@MainActivity,
-                    "Logout?",
-                    "Do you want to logout of your account?"
+                    getString(R.string.logout),
+                    getString(R.string.logout_desc)
                 ) { _, _ ->
                     signOut(this@MainActivity)
                 }
@@ -99,18 +84,18 @@ class MainActivity : AppCompatActivity() {
     private fun setIncompleteItemsData(notCompletedList: List<StoredTodo>) {
         incompleteListAdapter.items = notCompletedList
         if (notCompletedList.isNullOrEmpty()) {
-            binding.noTodoItems.visibility = View.VISIBLE
+            binding.noTodoItems.show()
         } else {
-            binding.noTodoItems.visibility = View.GONE
+            binding.noTodoItems.hide()
         }
     }
 
     private fun setCompleteItemsData(completedList: List<StoredTodo>) {
         completeListAdapter.items = completedList
         if (completedList.isNullOrEmpty()) {
-            binding.tvCompleted.visibility = View.GONE
+            binding.tvCompleted.hide()
         } else {
-            binding.tvCompleted.visibility = View.VISIBLE
+            binding.tvCompleted.show()
         }
     }
 
