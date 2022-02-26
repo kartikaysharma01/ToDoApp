@@ -3,9 +3,7 @@ package com.example.todoapp.utils
 import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
-import android.os.Build
 import android.view.View
-import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -30,11 +28,7 @@ fun Activity.hideKeyboard() {
 
 @Suppress("DEPRECATION")
 fun Activity.hideStatusBar() {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        window.insetsController?.hide(WindowInsets.Type.statusBars())
-    } else {
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-    }
+    window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 }
 
 fun Context.snack(view: View, msg: String, succeed: Boolean) {
