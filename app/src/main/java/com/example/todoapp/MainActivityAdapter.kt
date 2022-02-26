@@ -7,14 +7,12 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.databinding.ItemsTodolistBinding
-import com.example.todoapp.helper.FirebaseAuthenticationHelper
 import com.example.todoapp.helper.FirebaseAuthenticationHelper.getCurrentUserUid
 import com.example.todoapp.helper.FirebaseRealtimeDBHelper.changeItemStatus
 import com.example.todoapp.helper.FirebaseRealtimeDBHelper.deleteItem
 import com.example.todoapp.models.StoredTodo
 import com.example.todoapp.utils.dialogYesOrNo
 import com.example.todoapp.utils.snack
-
 
 class MainActivityAdapter :
     RecyclerView.Adapter<MainActivityAdapter.MyViewHolder>() {
@@ -83,9 +81,5 @@ class MainActivityAdapter :
     }
 
     inner class MyViewHolder(val viewDataBinding: ItemsTodolistBinding) :
-        RecyclerView.ViewHolder(viewDataBinding.root) {
-        init {
-
-        }
-    }
+        RecyclerView.ViewHolder(viewDataBinding.root)
 }

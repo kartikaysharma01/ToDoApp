@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ToDo App</string>
     <string name="new_app_name"><b>TO-DOODLES</b></string>
+    <string name="sign_in_google">Sign in with Google</string>
     <string name="login_cancel_back_press">Login Cancelled due to user back press</string>
     <string name="login_failed">Login failed. Error Code = %1d</string>
     <string name="img_btn_logout_desc">Logout</string>

@@ -1,18 +1,9 @@
 package com.example.todoapp
 
-import android.app.Activity
-import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.view.View
-import android.view.WindowManager
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.databinding.DataBindingUtil
 import com.example.todoapp.databinding.ActivityListDetailBinding
 import com.example.todoapp.helper.FirebaseAuthenticationHelper.getCurrentUserUid
@@ -20,9 +11,7 @@ import com.example.todoapp.helper.FirebaseRealtimeDBHelper.addItem
 import com.example.todoapp.helper.FirebaseRealtimeDBHelper.editItem
 import com.example.todoapp.models.StoredTodo
 import com.example.todoapp.utils.*
-import com.google.android.material.snackbar.Snackbar
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class ListDetailActivity : AppCompatActivity() {
     private lateinit var binding : ActivityListDetailBinding

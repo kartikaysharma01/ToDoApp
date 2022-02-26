@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import com.example.todoapp.databinding.ActivityLoginBinding
 import com.example.todoapp.utils.hideStatusBar
@@ -12,7 +11,6 @@ import com.example.todoapp.utils.snack
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
-import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
 
@@ -29,7 +27,13 @@ class LoginActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(
             this, R.layout.activity_login
         )
-        createSignInIntent()
+        initView()
+    }
+
+    private fun initView() {
+        binding.btnSignIn.setOnClickListener {
+            createSignInIntent()
+        }
     }
 
     private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
