@@ -1,4 +1,4 @@
-package com.example.todoapp
+package com.example.todoapp.adapters
 
 import android.content.Context
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.CompoundButton
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todoapp.R
 import com.example.todoapp.databinding.ItemsTodolistBinding
 import com.example.todoapp.helper.FirebaseAuthenticationHelper.getCurrentUserUid
 import com.example.todoapp.helper.FirebaseRealtimeDBHelper.changeItemStatus
@@ -13,6 +14,7 @@ import com.example.todoapp.helper.FirebaseRealtimeDBHelper.deleteItem
 import com.example.todoapp.models.StoredTodo
 import com.example.todoapp.utils.dialogYesOrNo
 import com.example.todoapp.utils.snack
+import com.example.todoapp.views.ListDetailActivity
 
 class MainActivityAdapter :
     RecyclerView.Adapter<MainActivityAdapter.MyViewHolder>() {

@@ -1,10 +1,11 @@
-package com.example.todoapp
+package com.example.todoapp.views
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
+import com.example.todoapp.R
 import com.example.todoapp.databinding.ActivityLoginBinding
 import com.example.todoapp.utils.hideStatusBar
 import com.example.todoapp.utils.snack

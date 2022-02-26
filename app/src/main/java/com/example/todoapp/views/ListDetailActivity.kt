@@ -1,10 +1,11 @@
-package com.example.todoapp
+package com.example.todoapp.views
 
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.example.todoapp.R
 import com.example.todoapp.databinding.ActivityListDetailBinding
 import com.example.todoapp.helper.FirebaseAuthenticationHelper.getCurrentUserUid
 import com.example.todoapp.helper.FirebaseRealtimeDBHelper.addItem

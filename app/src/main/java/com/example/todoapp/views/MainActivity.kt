@@ -1,9 +1,11 @@
-package com.example.todoapp
+package com.example.todoapp.views
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.example.todoapp.R
+import com.example.todoapp.adapters.MainActivityAdapter
 import com.example.todoapp.databinding.ActivityMainBinding
 import com.example.todoapp.helper.FirebaseAuthenticationHelper.getCurrentUserUid
 import com.example.todoapp.helper.FirebaseAuthenticationHelper.isLoggedIn

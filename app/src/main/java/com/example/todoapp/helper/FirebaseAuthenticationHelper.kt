@@ -2,7 +2,7 @@ package com.example.todoapp.helper
 
 import android.content.Context
 import android.content.Intent
-import com.example.todoapp.LoginActivity
+import com.example.todoapp.views.LoginActivity
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 
