@@ -135,7 +135,7 @@
             android:id="@+id/sfl_main_activity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#757474"
+            android:background="#dddddd"
             android:visibility="visible"
             app:shimmer_auto_start="true" />
     </RelativeLayout>
