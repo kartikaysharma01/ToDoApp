@@ -41,6 +41,7 @@ class LoginActivity : AppCompatActivity() {
             // Successfully signed in
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            finish()
         } else {
             if (result.idpResponse == null)
                 snack(binding.root, getString(R.string.login_cancel_back_press), false)

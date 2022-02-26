@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         if (!isLoggedIn()) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
         initViews()
     }
@@ -76,6 +77,7 @@ class MainActivity : AppCompatActivity() {
                     getString(R.string.logout_desc)
                 ) { _, _ ->
                     signOut(this@MainActivity)
+                    finish()
                 }
             }
             rvCompleteToDoList.adapter = completeListAdapter
