@@ -23,7 +23,8 @@ class ListDetailActivity : AppCompatActivity() {
     private var createdAt: String? = null
     private var updatedAt: String? = null
     private var id: String? = null
-    private var isItemChanged = false
+    private var isTitleChanged = false
+    private var isDescChanged = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +47,7 @@ class ListDetailActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (isItemChanged) {
+        if (isTitleChanged || isDescChanged) {
             dialogYesOrNo(
                 getString(R.string.discard_changes),
                 getString(R.string.discard_desc)
@@ -88,28 +89,28 @@ class ListDetailActivity : AppCompatActivity() {
         binding.etItemTitle.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 title = s.toString()
+                isTitleChanged = itemData?.title != title
                 checkSaveEnabled()
-                isItemChanged = true
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // to nothing
+                // do nothing
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // to nothing
+                // do nothing
             }
         })
 
         binding.etItemDesc.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 desc = s.toString()
+                isDescChanged = itemData?.desc != desc
                 checkSaveEnabled()
-                isItemChanged = true
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // to nothing
+                // do nothing
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // to nothing
+                // do nothing
             }
         })
     }
@@ -137,6 +138,7 @@ class ListDetailActivity : AppCompatActivity() {
             snack(binding.root, getString(R.string.todo_edited), true)
         }
         setData()
-        isItemChanged = false
+        isTitleChanged = false
+        isDescChanged = false
     }
 }
