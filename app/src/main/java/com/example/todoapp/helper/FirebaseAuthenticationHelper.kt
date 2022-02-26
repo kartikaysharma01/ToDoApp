@@ -19,13 +19,11 @@ object FirebaseAuthenticationHelper {
     }
 
     fun signOut(context: Context) {
-        // [START auth_fui_signout]
         AuthUI.getInstance()
             .signOut(context)
             .addOnCompleteListener {
                 val intent = Intent(context, LoginActivity::class.java)
                 context.startActivity(intent)
             }
-        // [END auth_fui_signout]
     }
 }

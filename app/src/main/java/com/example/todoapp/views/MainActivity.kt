@@ -25,8 +25,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        hideStatusBar()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        hideStatusBar()
 
         if (!isLoggedIn()) {
             val intent = Intent(this, LoginActivity::class.java)
@@ -41,15 +41,17 @@ class MainActivity : AppCompatActivity() {
         binding.sflMainActivity.showShimmer(true)
         binding.sflMainActivity.show()
 
-        fetchData(getCurrentUserUid()).observe(this) { data ->
-            binding.sflMainActivity.stopShimmer()
-            binding.sflMainActivity.hideShimmer()
-            binding.sflMainActivity.hide()
-            if (data != null) {
-                if (data.value == null)
-                    setNoDataLayout()
-                setIncompleteItemsData(getIncompleteItemsData(data), data.value)
-                setCompleteItemsData(getCompleteItemsData(data))
+        if (isLoggedIn()) {
+            fetchData(getCurrentUserUid()).observe(this) { data ->
+                binding.sflMainActivity.stopShimmer()
+                binding.sflMainActivity.hideShimmer()
+                binding.sflMainActivity.hide()
+                if (data != null) {
+                    if (data.value == null)
+                        setNoDataLayout()
+                    setIncompleteItemsData(getIncompleteItemsData(data), data.value)
+                    setCompleteItemsData(getCompleteItemsData(data))
+                }
             }
         }
     }

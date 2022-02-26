@@ -27,10 +27,10 @@ class ListDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        hideStatusBar()
         binding = DataBindingUtil.setContentView(
             this, R.layout.activity_list_detail
         )
+        hideStatusBar()
         itemData = intent.getParcelableExtra("item_data") as StoredTodo?
 
         initViews()
