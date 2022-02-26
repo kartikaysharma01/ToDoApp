@@ -74,8 +74,13 @@
                 android:orientation="vertical" >
 
                 <include
+                    android:id="@+id/no_incomplete_todo_items"
+                    layout="@layout/layout_no_incomplete_list"
+                    android:visibility="gone" />
+
+                <include
                     android:id="@+id/no_todo_items"
-                    layout="@layout/layout_no_list"
+                    layout="@layout/layout_no_data"
                     android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView

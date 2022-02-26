@@ -45,18 +45,19 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         fetchData(getCurrentUserUid()).observe(this) { data ->
-            if (data == null){
-                setNoDataLayout()
-            } else {
-                setIncompleteItemsData(getIncompleteItemsData(data))
+            // data will never be null for realtime db,
+            if (data != null) {
+                if (data.value == null)
+                    setNoDataLayout()
+                setIncompleteItemsData(getIncompleteItemsData(data), data.value)
                 setCompleteItemsData(getCompleteItemsData(data))
             }
         }
     }
 
      private fun setNoDataLayout() {
-         // todo
          binding.noTodoItems.show()
+         binding.noIncompleteTodoItems.hide()
          binding.tvCompleted.hide()
      }
 
@@ -81,13 +82,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setIncompleteItemsData(notCompletedList: List<StoredTodo>) {
+    private fun setIncompleteItemsData(
+        notCompletedList: List<StoredTodo>, data: Any?
+    ) {
         incompleteListAdapter.items = notCompletedList
-        if (notCompletedList.isNullOrEmpty()) {
-            binding.noTodoItems.show()
-        } else {
-            binding.noTodoItems.hide()
-        }
+        if (data != null)
+            if (notCompletedList.isNullOrEmpty()) {
+                binding.noIncompleteTodoItems.show()
+            } else {
+                binding.noIncompleteTodoItems.hide()
+                binding.noTodoItems.hide()
+            }
     }
 
     private fun setCompleteItemsData(completedList: List<StoredTodo>) {
@@ -95,6 +100,7 @@ class MainActivity : AppCompatActivity() {
         if (completedList.isNullOrEmpty()) {
             binding.tvCompleted.hide()
         } else {
+            binding.noTodoItems.hide()
             binding.tvCompleted.show()
         }
     }

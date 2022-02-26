@@ -23,4 +23,10 @@
     <string name="hint_item_title">Title</string>
     <string name="created_at">Created at: </string>
     <string name="updated_at">Updated at: </string>
+    <string name="no_more_incomplete_todo">Great Job!! No more ToDos</string>
+    <string name="no_more_todo_desc">You can click on the + icon to add new items or take the day off…</string>
+    <string name="img_tick_desc">All ToDos completed</string>
+    <string name="img_add_desc">Add new ToDos</string>
+    <string name="no_todo_data">Add New To-Dos</string>
+    <string name="no_todo_data_desc">Use the + icon to add new to-doodles and never miss a task again.</string>
 </resources>

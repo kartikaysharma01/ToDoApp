@@ -26,7 +26,7 @@ object FirebaseRealtimeDBHelper {
     }
 
     fun fetchData(uid: String): MutableLiveData<DataSnapshot?> {
-        var returnList: DataSnapshot? = null
+        var returnList: DataSnapshot?
         initUserKey(uid)
         database.child(uid).orderByChild("updatedAt").get()
             .addOnSuccessListener {
@@ -80,7 +80,7 @@ object FirebaseRealtimeDBHelper {
         database.child(uid).get()
             .addOnSuccessListener {
                 if (!it.exists()) {
-                    database.child(uid).setValue("Temp")
+                    database.child(uid).setValue(null)
                 }
             }.addOnFailureListener {
                 Log.d(TAG, "Failed to initialize user key, error = ${it.message}")
