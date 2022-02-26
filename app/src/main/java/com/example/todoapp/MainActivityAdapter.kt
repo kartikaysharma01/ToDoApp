@@ -2,17 +2,15 @@ package com.example.todoapp
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.databinding.ItemsTodolistBinding
 import com.example.todoapp.helper.FirebaseAuthenticationHelper.getCurrentUserUid
 import com.example.todoapp.helper.FirebaseRealtimeDBHelper.changeItemStatus
 import com.example.todoapp.helper.FirebaseRealtimeDBHelper.deleteItem
 import com.example.todoapp.models.StoredTodo
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
 
 
 class MainActivityAdapter :
@@ -40,7 +38,7 @@ class MainActivityAdapter :
         val itemTitle = todoItem.title
 
         holder.viewDataBinding.also {
-            // if the item is completed, gray it out
+            // if the item status is completed, gray it out
             if (todoItem.status) {
                 it.cardView.alpha = 0.5f
                 it.chkToDo.isChecked = true
@@ -50,12 +48,16 @@ class MainActivityAdapter :
 
             it.tvToDo.text = itemTitle
             it.imgDelete.setOnClickListener {
+                // todo add a snackbar
                 deleteItem(getCurrentUserUid() ,todoItem)
             }
-            it.chkToDo.setOnCheckedChangeListener { compoundButton, b ->
-                changeItemStatus(getCurrentUserUid() ,todoItem, b)
+            it.chkToDo.setOnClickListener { view ->
+                if ((view as CompoundButton).isChecked) {
+                    changeItemStatus(getCurrentUserUid() ,todoItem, true)
+                } else {
+                    changeItemStatus(getCurrentUserUid() ,todoItem, false)
+                }
             }
-
             it.cardView.setOnClickListener {
                 val intent = Intent(context, ListDetailActivity::class.java)
                 intent.putExtra("item_data", todoItem)

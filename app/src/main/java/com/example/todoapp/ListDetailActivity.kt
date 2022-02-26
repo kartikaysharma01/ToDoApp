@@ -21,6 +21,7 @@ import com.example.todoapp.helper.FirebaseRealtimeDBHelper.editItem
 import com.example.todoapp.models.StoredTodo
 import com.google.android.material.snackbar.Snackbar
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class ListDetailActivity : AppCompatActivity() {
     private lateinit var binding : ActivityListDetailBinding
@@ -47,8 +48,8 @@ class ListDetailActivity : AppCompatActivity() {
     private fun setData() {
         binding.etItemTitle.setText(itemData!!.title)
         binding.etItemDesc.setText(itemData!!.desc)
-        binding.tvCredited.text = itemData!!.createdAt
-        binding.tvLastModified.text = itemData!!.updatedAt
+        binding.tvCreated.text = dateParser(itemData!!.createdAt)
+        binding.tvLastModified.text = dateParser(itemData!!.updatedAt)
         binding.llDates.visibility = View.VISIBLE
         checkSaveEnabled(true)
     }
@@ -129,6 +130,7 @@ class ListDetailActivity : AppCompatActivity() {
         binding.etItemDesc.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 desc = s.toString()
+                checkSaveEnabled()
                 isItemChanged = true
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -160,20 +162,25 @@ class ListDetailActivity : AppCompatActivity() {
         snackBar.show()
     }
 
+    private fun dateParser(date: String): String {
+        val localDateTime = LocalDateTime.parse(date)
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd,yyyy HH:mm")
+        return formatter.format(localDateTime)
+    }
+
     private fun saveItemToDB() {
-        Log.d("testing1","here to save to db ")
         updatedAt = LocalDateTime.now().toString()
         if (createdAt == null)
             createdAt = updatedAt
-        val todoItem = StoredTodo(id, createdAt!!, updatedAt!!, title!!, desc, status)
+        itemData = StoredTodo(id, createdAt!!, updatedAt!!, title!!, desc, status)
         if (id == null) {
-            id = addItem(getCurrentUserUid(), todoItem)
+            id = addItem(getCurrentUserUid(), itemData!!)
             showSnackBar("New ToDo Added Successfully.", true)
         } else {
-            editItem(getCurrentUserUid(), todoItem)
+            editItem(getCurrentUserUid(), itemData!!)
             showSnackBar("ToDo edited Successfully.", true)
         }
+        setData()
         isItemChanged = false
-        checkSaveEnabled(true)
     }
 }

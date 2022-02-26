@@ -21,7 +21,6 @@ import com.example.todoapp.helper.FirebaseRealtimeDBHelper.fetchData
 import com.example.todoapp.models.StoredTodo
 import com.google.firebase.database.DataSnapshot
 
-
 class MainActivity : AppCompatActivity() {
     private lateinit var incompleteListAdapter: MainActivityAdapter
     private lateinit var completeListAdapter: MainActivityAdapter
@@ -41,21 +40,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        Log.d("testing", "ln 36 onresume MainActivity>")
-        fetchData(getCurrentUserUid()).observe(this, Observer<DataSnapshot?> { data ->
-            Log.d("testing", "ln 45 MainActivity>")
-            setIncompleteItemsData(getIncompleteItemsData(data))
-            setCompleteItemsData(getCompleteItemsData(data))
-
-        })
-
+        fetchData(getCurrentUserUid()).observe(this) { data ->
+            if (data == null){
+                setNoDataLayout()
+            } else {
+                setIncompleteItemsData(getIncompleteItemsData(data))
+                setCompleteItemsData(getCompleteItemsData(data))
+            }
+        }
     }
 
-    fun hideStatusBar() {
-        val decorView = window.decorView
-        val uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN
-        decorView.systemUiVisibility = uiOptions
-    }
+     private fun setNoDataLayout() {
+         binding.noTodoItems.visibility = View.VISIBLE
+         binding.tvCompleted.visibility = View.GONE
+     }
 
     fun dialogYesOrNo(
         activity: Activity,
@@ -120,7 +118,6 @@ class MainActivity : AppCompatActivity() {
         val notCompletedList = mutableListOf<StoredTodo>()
         for (child in allDataList.children) {
             val todo2 = child.getValue(StoredTodo::class.java) ?: continue
-            Log.d("testing1","child = $child")
             todo2.id = child.key.toString()
             if (!todo2.status) {
                 notCompletedList.add(todo2)
@@ -134,7 +131,6 @@ class MainActivity : AppCompatActivity() {
         val completedList = mutableListOf<StoredTodo>()
         for (child in allDataList.children) {
             val todo2 = child.getValue(StoredTodo::class.java) ?: continue
-            Log.d("testing1", "child = $child")
             todo2.id = child.key.toString()
             if (todo2.status) {
                 completedList.add(todo2)
