@@ -99,6 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
+                    android:visibility="gone"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/completed" />
@@ -129,5 +130,13 @@
             android:layout_marginBottom="16dp"
             android:contentDescription="@string/add_new_todo"
             android:src="@drawable/ic_baseline_add_24" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/sfl_main_activity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#757474"
+            android:visibility="visible"
+            app:shimmer_auto_start="true" />
     </RelativeLayout>
 </layout>

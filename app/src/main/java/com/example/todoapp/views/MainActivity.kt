@@ -37,8 +37,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        binding.sflMainActivity.startShimmer()
+        binding.sflMainActivity.showShimmer(true)
+        binding.sflMainActivity.show()
+
         fetchData(getCurrentUserUid()).observe(this) { data ->
-            // data will never be null for realtime db,
+            binding.sflMainActivity.stopShimmer()
+            binding.sflMainActivity.hideShimmer()
+            binding.sflMainActivity.hide()
             if (data != null) {
                 if (data.value == null)
                     setNoDataLayout()
