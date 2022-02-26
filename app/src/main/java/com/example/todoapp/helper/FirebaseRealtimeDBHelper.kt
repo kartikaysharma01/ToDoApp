@@ -12,17 +12,16 @@ import com.google.firebase.ktx.Firebase
 
 object FirebaseRealtimeDBHelper {
 
-    var database: DatabaseReference
-    val allItemsMutableLiveData = MutableLiveData<DataSnapshot?>()
+    private var database: DatabaseReference
+    private val allItemsMutableLiveData = MutableLiveData<DataSnapshot?>()
     private var TAG = FirebaseRealtimeDBHelper::class.java.simpleName
+    private var DB_URL = "https://todo-app-groww-assignment-default-rtdb.asia-southeast1.firebasedatabase.app/"
 
     init {
         // check database connection
         connectToRealtimeDatabase()
 
-        database = Firebase.database(
-            "https://todo-app-groww-assignment-default-rtdb.asia-southeast1.firebasedatabase.app/"
-        ).reference.child("todos")
+        database = Firebase.database(DB_URL).reference.child("todos")
     }
 
     fun fetchData(uid: String): MutableLiveData<DataSnapshot?> {
@@ -34,7 +33,7 @@ object FirebaseRealtimeDBHelper {
                 allItemsMutableLiveData.postValue(returnList)
             }
             .addOnFailureListener {
-                // todo; add a snack, unable to connect to database . please check ur internet conection
+                Log.e(TAG, "unable to connect to database, ERROR MSG = ${it.message}")
             }
         return allItemsMutableLiveData
     }
@@ -83,13 +82,12 @@ object FirebaseRealtimeDBHelper {
                     database.child(uid).setValue(null)
                 }
             }.addOnFailureListener {
-                Log.d(TAG, "Failed to initialize user key, error = ${it.message}")
-                // todo; add a snack, unable to intialise userkey in database
+                Log.e(TAG, "Failed to initialize user key, error = ${it.message}")
             }
     }
 
     private fun connectToRealtimeDatabase() {
-        val connectedRef = Firebase.database("https://todo-app-groww-assignment-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference(".info/connected")
+        val connectedRef = Firebase.database(DB_URL).getReference(".info/connected")
         connectedRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val connected = snapshot.getValue(Boolean::class.java) ?: false

@@ -1,18 +1,9 @@
 package com.example.todoapp
 
-import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.view.Window
-import android.view.WindowManager
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import com.example.todoapp.databinding.ActivityMainBinding
 import com.example.todoapp.helper.FirebaseAuthenticationHelper.getCurrentUserUid
 import com.example.todoapp.helper.FirebaseAuthenticationHelper.isLoggedIn
