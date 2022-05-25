@@ -32,6 +32,7 @@ class MainActivityAdapter :
             parent,
             false
         )
+
         context = parent.context
         return MyViewHolder(withDataBinding)
     }
